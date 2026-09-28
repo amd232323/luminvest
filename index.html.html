@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Indumentaria Inteligente de Alta Visibilidad — Prendas con tecnología LED para ciclistas, peatones y trabajadores nocturnos, confeccionadas por personas en situación de vulnerabilidad.">
+<title>LuminVest — Indumentaria Inteligente de Alta Visibilidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─────────────────────────────────────── */
+:root{
+  --navy:   #0B2545;
+  --navy2:  #132F5E;
+  --led:    #C8F135;
+  --led2:   #A8D020;
+  --teal:   #0E6E5E;
+  --white:  #FFFFFF;
+  --off:    #F0F4F8;
+  --gray:   #4A5568;
+  --graylt: #8898A8;
+  --border: #D1DCE8;
+  --font-h: 'Space Grotesk', sans-serif;
+  --font-b: 'Inter', sans-serif;
+  --r:      8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);color:var(--navy);background:var(--white);font-size:16px;line-height:1.6}
+
+/* ─── SKIP LINK (accesibilidad) ────────────────────── */
+.skip-link{
+  position:absolute;left:-999px;top:0;width:1px;height:1px;overflow:hidden;
+  background:var(--led);color:var(--navy);font-weight:700;padding:.5rem 1rem;z-index:9999;
+  border-radius:0 0 var(--r) 0;text-decoration:none;
+}
+.skip-link:focus{left:0;width:auto;height:auto}
+
+/* ─── NAV ──────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 2rem;
+  border-bottom:2px solid var(--led);
+}
+.nav-logo{
+  font-family:var(--font-h);font-size:1.3rem;font-weight:700;
+  color:var(--white);text-decoration:none;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:.5rem;
+}
+.nav-logo span{color:var(--led)}
+.led-dot{
+  width:10px;height:10px;border-radius:50%;background:var(--led);
+  box-shadow:0 0 8px var(--led),0 0 20px var(--led);
+  display:inline-block;
+}
+.nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
+.nav-links a{
+  color:var(--white);text-decoration:none;font-size:.9rem;font-weight:500;
+  padding:.4rem .8rem;border-radius:var(--r);transition:background .2s;
+}
+.nav-links a:hover,.nav-links a:focus{background:rgba(200,241,53,.15);outline:2px solid var(--led);outline-offset:2px}
+.nav-cta{
+  background:var(--led);color:var(--navy)!important;font-weight:700!important;
+  padding:.5rem 1.2rem!important;border-radius:var(--r)!important;
+}
+.nav-cta:hover,.nav-cta:focus{background:var(--led2)!important}
+
+/* ─── HERO ──────────────────────────────────────────── */
+#inicio{
+  background:var(--navy);
+  min-height:92vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  padding:4rem 2rem;
+}
+.hero-glow{
+  position:absolute;right:-200px;top:-200px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle, rgba(200,241,53,.18) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-glow2{
+  position:absolute;left:-100px;bottom:-150px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle, rgba(14,110,94,.25) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(200,241,53,.12);border:1px solid rgba(200,241,53,.35);
+  color:var(--led);font-size:.8rem;font-weight:600;
+  padding:.35rem .9rem;border-radius:20px;margin-bottom:1.5rem;letter-spacing:.04em;
+}
+.hero-h1{
+  font-family:var(--font-h);font-size:clamp(2.2rem,4vw,3.4rem);
+  font-weight:700;line-height:1.1;color:var(--white);
+  margin-bottom:1.25rem;
+}
+.hero-h1 em{color:var(--led);font-style:normal}
+.hero-p{color:#B8C8D8;font-size:1.1rem;line-height:1.7;margin-bottom:2rem;max-width:480px}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{
+  background:var(--led);color:var(--navy);font-weight:700;font-size:1rem;
+  padding:.85rem 2rem;border-radius:var(--r);border:none;cursor:pointer;
+  text-decoration:none;display:inline-block;
+  transition:background .2s,transform .15s;
+  min-height:44px;
+}
+.btn-primary:hover,.btn-primary:focus{background:var(--led2);transform:translateY(-1px);outline:3px solid var(--led2);outline-offset:3px}
+.btn-secondary{
+  background:transparent;color:var(--white);font-weight:600;font-size:1rem;
+  padding:.85rem 2rem;border-radius:var(--r);border:2px solid rgba(255,255,255,.35);
+  cursor:pointer;text-decoration:none;display:inline-block;
+  transition:border-color .2s,background .2s;
+  min-height:44px;
+}
+.btn-secondary:hover,.btn-secondary:focus{border-color:var(--led);color:var(--led);background:rgba(200,241,53,.08)}
+
+/* Hero visual */
+.hero-visual{
+  display:flex;flex-direction:column;gap:1.25rem;
+}
+.hero-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(200,241,53,.2);
+  border-radius:12px;padding:1.25rem 1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.hero-card-icon{
+  width:44px;height:44px;min-width:44px;border-radius:10px;
+  background:rgba(200,241,53,.15);display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+}
+.hero-card-title{color:var(--white);font-weight:600;font-size:.95rem}
+.hero-card-sub{color:#8898A8;font-size:.82rem;margin-top:.15rem}
+.hero-stat-row{display:flex;gap:1.5rem;margin-top:.5rem}
+.hero-stat{text-align:center}
+.hero-stat-val{color:var(--led);font-family:var(--font-h);font-size:1.8rem;font-weight:700;display:block}
+.hero-stat-lbl{color:#8898A8;font-size:.78rem;margin-top:.15rem}
+
+/* ─── SECTION SHARED ────────────────────────────────── */
+section{padding:5rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{
+  font-size:.8rem;font-weight:600;letter-spacing:.08em;
+  color:var(--teal);margin-bottom:.6rem;text-transform:uppercase;
+}
+.section-h2{
+  font-family:var(--font-h);font-size:clamp(1.8rem,3vw,2.4rem);
+  font-weight:700;line-height:1.2;margin-bottom:1rem;color:var(--navy);
+}
+.section-p{color:var(--gray);font-size:1.05rem;line-height:1.75;max-width:620px}
+
+/* ─── PRODUCTOS ─────────────────────────────────────── */
+#productos{background:var(--off)}
+.products-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-top:2.5rem;
+}
+.product-card{
+  background:var(--white);border-radius:12px;
+  border:1px solid var(--border);overflow:hidden;
+  transition:box-shadow .2s,transform .2s;
+}
+.product-card:hover,.product-card:focus-within{
+  box-shadow:0 8px 32px rgba(11,37,69,.12);transform:translateY(-3px);
+}
+.product-img{
+  height:200px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:4rem;
+  position:relative;
+}
+.product-img.p1{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%)}
+.product-img.p2{background:linear-gradient(135deg,#0E6E5E 0%,#0A4A3F 100%)}
+.product-img.p3{background:linear-gradient(135deg,#1A1A2E 0%,#16213E 100%)}
+.led-badge{
+  position:absolute;bottom:.75rem;right:.75rem;
+  background:var(--led);color:var(--navy);
+  font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:4px;
+}
+.product-body{padding:1.25rem 1.5rem}
+.product-name{font-family:var(--font-h);font-weight:700;font-size:1.1rem;margin-bottom:.4rem;color:var(--navy)}
+.product-desc{color:var(--gray);font-size:.88rem;line-height:1.6;margin-bottom:1rem}
+.product-features{list-style:none;margin-bottom:1.25rem}
+.product-features li{
+  font-size:.82rem;color:var(--gray);padding:.2rem 0;
+  padding-left:1.2rem;position:relative;
+}
+.product-features li::before{
+  content:'●';position:absolute;left:0;color:var(--teal);font-size:.5rem;top:.35rem;
+}
+.product-price{font-family:var(--font-h);font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:1rem}
+.btn-card{
+  width:100%;background:var(--navy);color:var(--white);font-weight:600;
+  padding:.75rem;border-radius:var(--r);border:none;cursor:pointer;font-size:.9rem;
+  text-align:center;display:block;text-decoration:none;
+  transition:background .2s;min-height:44px;
+}
+.btn-card:hover,.btn-card:focus{background:var(--teal);outline:3px solid var(--navy);outline-offset:2px}
+
+/* ─── IMPACTO / NOSOTROS ─────────────────────────────── */
+#impacto{background:var(--navy)}
+#impacto .section-h2{color:var(--white)}
+#impacto .section-p{color:#B8C8D8}
+#impacto .section-label{color:var(--led)}
+.impact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2.5rem;
+}
+.impact-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.stat-card{
+  background:rgba(255,255,255,.06);border:1px solid rgba(200,241,53,.15);
+  border-radius:12px;padding:1.5rem;text-align:center;
+}
+.stat-num{
+  font-family:var(--font-h);font-size:2.2rem;font-weight:700;
+  color:var(--led);display:block;margin-bottom:.35rem;
+}
+.stat-desc{color:#B8C8D8;font-size:.85rem;line-height:1.5}
+.impact-text .section-p{margin-bottom:1.5rem}
+.impact-list{list-style:none;margin-bottom:2rem}
+.impact-list li{
+  color:#B8C8D8;font-size:.95rem;padding:.5rem 0;
+  padding-left:1.5rem;position:relative;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.impact-list li::before{content:'✓';position:absolute;left:0;color:var(--led);font-weight:700}
+
+/* POUR section */
+#pour{background:var(--white)}
+.pour-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;margin-top:2.5rem;
+}
+.pour-card{
+  border-radius:12px;padding:1.75rem;border:1px solid var(--border);
+  transition:border-color .2s;
+}
+.pour-card:hover{border-color:var(--teal)}
+.pour-num{
+  font-family:var(--font-h);font-size:.75rem;font-weight:700;
+  letter-spacing:.1em;color:var(--graylt);margin-bottom:.5rem;text-transform:uppercase;
+}
+.pour-icon{font-size:2rem;margin-bottom:.75rem;display:block}
+.pour-title{font-family:var(--font-h);font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
+.pour-desc{color:var(--gray);font-size:.88rem;line-height:1.65}
+.pour-card.p{border-top:3px solid var(--led)}
+.pour-card.o{border-top:3px solid var(--teal)}
+.pour-card.u{border-top:3px solid #6B48FF}
+.pour-card.r{border-top:3px solid #E07B20}
+
+/* ─── CONTACTO ──────────────────────────────────────── */
+#contacto{background:var(--off)}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:2.5rem;
+}
+.form-group{margin-bottom:1.25rem}
+label{
+  display:block;font-weight:600;font-size:.88rem;
+  color:var(--navy);margin-bottom:.4rem;
+}
+input,select,textarea{
+  width:100%;padding:.75rem 1rem;
+  border:2px solid var(--border);border-radius:var(--r);
+  font-family:var(--font-b);font-size:1rem;color:var(--navy);
+  background:var(--white);
+  transition:border-color .2s;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--navy);outline:3px solid rgba(11,37,69,.25);outline-offset:1px;
+}
+textarea{resize:vertical;min-height:130px}
+.form-hint{font-size:.78rem;color:var(--graylt);margin-top:.3rem}
+.contact-info h3{font-family:var(--font-h);font-size:1.3rem;margin-bottom:1rem;color:var(--navy)}
+.contact-info p{color:var(--gray);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem}
+.contact-item{
+  display:flex;align-items:flex-start;gap:.75rem;
+  margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border);
+}
+.contact-item:last-child{border-bottom:none}
+.contact-icon{
+  width:40px;height:40px;min-width:40px;border-radius:8px;
+  background:var(--navy);display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:var(--led);
+}
+.contact-item-text strong{display:block;font-size:.88rem;color:var(--navy)}
+.contact-item-text span{font-size:.82rem;color:var(--graylt)}
+
+/* ─── FOOTER ────────────────────────────────────────── */
+footer{
+  background:var(--navy);color:#B8C8D8;
+  padding:3rem 2rem 2rem;border-top:2px solid var(--led);
+}
+.footer-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem;
+}
+.footer-brand{font-family:var(--font-h);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.75rem}
+.footer-brand span{color:var(--led)}
+.footer-p{font-size:.85rem;line-height:1.7;max-width:280px}
+.footer-h{font-family:var(--font-h);font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:.75rem}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:.5rem}
+.footer-links a{color:#8898A8;text-decoration:none;font-size:.85rem;transition:color .2s}
+.footer-links a:hover,.footer-links a:focus{color:var(--led)}
+.footer-bottom{
+  max-width:1100px;margin:0 auto;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.8rem;color:#8898A8;flex-wrap:wrap;gap:1rem;
+}
+.wcag-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.3);
+  color:var(--led);font-size:.72rem;font-weight:600;
+  padding:.25rem .7rem;border-radius:4px;
+}
+
+/* ─── ACCESSIBILITY ──────────────────────────────────── */
+*:focus-visible{outline:3px solid var(--led);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media(max-width:768px){
+  .hero-inner,.impact-grid,.contact-grid,.footer-grid{grid-template-columns:1fr}
+  .hero-stat-row{justify-content:center}
+  nav{padding:.75rem 1rem}
+  .nav-links{display:none}
+}
+
+/* ─── PAGE ANCHOR TABS (navigation demo) ───────────────── */
+.tab-bar{
+  display:flex;overflow-x:auto;gap:0;
+  border-bottom:2px solid var(--border);margin-bottom:2.5rem;
+  scrollbar-width:none;
+}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{
+  padding:.75rem 1.5rem;font-weight:600;font-size:.9rem;
+  color:var(--graylt);border:none;background:none;cursor:pointer;
+  border-bottom:3px solid transparent;margin-bottom:-2px;
+  white-space:nowrap;transition:color .2s,border-color .2s;
+  min-height:44px;
+}
+.tab.active,.tab:hover,.tab:focus{color:var(--navy);border-bottom-color:var(--led)}
+.tab:focus{outline:3px solid var(--led);outline-offset:-3px}
+</style>
+</head>
+<body>
+
+<!-- Skip navigation (WCAG 2.4.1) -->
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav role="navigation" aria-label="Navegación principal">
+  <a href="#inicio" class="nav-logo" aria-label="LuminVest — Inicio">
+    <span class="led-dot" aria-hidden="true"></span>
+    Lumin<span>Vest</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#impacto">Impacto Social</a></li>
+    <li><a href="#pour">Accesibilidad</a></li>
+    <li><a href="#contacto" class="nav-cta">Únete al equipo</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HERO / INICIO ═══════════════ -->
+<main id="main-content">
+<section id="inicio" aria-labelledby="hero-heading">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-glow2" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge" aria-label="Empresa Social">
+        <span class="led-dot" aria-hidden="true"></span>
+        Empresa Social · Modelo Inclusivo
+      </div>
+      <h1 class="hero-h1" id="hero-heading">
+        Prendas que <em>iluminan</em> tu camino nocturno
+      </h1>
+      <p class="hero-p">
+        Chalecos, chamarras y mochilas con tecnología LED y sensores que protegen a ciclistas, peatones y trabajadores nocturnos de accidentes viales, confeccionadas por personas en situación de vulnerabilidad con empleo digno y formal.
+      </p>
+      <div class="hero-actions">
+        <a href="#productos" class="btn-primary" role="button">Ver catálogo</a>
+        <a href="#impacto" class="btn-secondary" role="button">Nuestro impacto social</a>
+      </div>
+    </div>
+    <div class="hero-visual" aria-label="Datos clave de la empresa">
+      <div class="hero-card">
+        <div class="hero-card-icon" aria-hidden="true">🦺</div>
+        <div>
+          <div class="hero-card-title">Chaleco LED ProVis 360</div>
+          <div class="hero-card-sub">Visibilidad omnidireccional · Batería 12h · IP44</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon" aria-hidden="true">💡</div>
+        <div>
+          <div class="hero-card-title">Tecnología LED + Sensores</div>
+          <div class="hero-card-sub">Detección de movimiento · Modo automático nocturno</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon" aria-hidden="true">🤝</div>
+        <div>
+          <div class="hero-card-title">Empleo formal con IMSS</div>
+          <div class="hero-card-sub">100% de empleados con contrato y prestaciones de ley</div>
+        </div>
+      </div>
+      <div class="hero-stat-row" aria-label="Estadísticas de impacto">
+        <div class="hero-stat">
+          <span class="hero-stat-val">15+</span>
+          <div class="hero-stat-lbl">Empleos dignos</div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">500+</span>
+          <div class="hero-stat-lbl">Prendas vendidas</div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">B+</span>
+          <div class="hero-stat-lbl">Calificación ESG</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRODUCTOS ═══════════════ -->
+<section id="productos" aria-labelledby="cat-heading">
+  <div class="container">
+    <p class="section-label">Catálogo</p>
+    <h2 class="section-h2" id="cat-heading">Prendas que protegen y transforman</h2>
+    <p class="section-p">Cada prenda es confeccionada a mano en nuestro taller social por personas capacitadas y contratadas con salario justo. Alta visibilidad, diseño funcional y tecnología accesible.</p>
+
+    <div class="tab-bar" role="tablist" aria-label="Categorías de productos">
+      <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-todos">Todos</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="tab-chalecos">Chalecos</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="tab-chamarras">Chamarras</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="tab-mochilas">Mochilas</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="tab-b2b">Corporativo B2B</button>
+    </div>
+
+    <div id="tab-todos" role="tabpanel">
+    <div class="products-grid">
+      <!-- Producto 1 -->
+      <article class="product-card" aria-labelledby="prod1-name">
+        <div class="product-img p1" role="img" aria-label="Chaleco ProVis 360 en color azul marino con tiras LED amarillas en el frente y espalda">
+          🦺
+          <span class="led-badge" aria-label="Tecnología LED incluida">LED</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name" id="prod1-name">Chaleco ProVis 360</h3>
+          <p class="product-desc">Chaleco reflectivo con tiras LED perimetrales, sensor de movimiento y batería recargable USB. Ideal para ciclistas y repartidores urbanos.</p>
+          <ul class="product-features" aria-label="Características principales">
+            <li>Visibilidad 360° hasta 200 metros</li>
+            <li>Batería de 12 horas de autonomía</li>
+            <li>Resistente al agua IP44</li>
+            <li>Tallas XS a 3XL</li>
+          </ul>
+          <p class="product-price" aria-label="Precio: 850 pesos mexicanos">$850 MXN</p>
+          <a href="#contacto" class="btn-card">Solicitar información</a>
+        </div>
+      </article>
+      <!-- Producto 2 -->
+      <article class="product-card" aria-labelledby="prod2-name">
+        <div class="product-img p2" role="img" aria-label="Chamarra NocturnPro en color verde oscuro con paneles LED laterales y capucha impermeable">
+          🧥
+          <span class="led-badge" aria-label="Tecnología LED incluida">LED</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name" id="prod2-name">Chamarra NocturnPro</h3>
+          <p class="product-desc">Chamarra con capucha impermeable, paneles LED laterales activables y aislamiento térmico. Para trabajadores nocturnos en exteriores.</p>
+          <ul class="product-features" aria-label="Características principales">
+            <li>Activación automática al oscurecer</li>
+            <li>Forro térmico desmontable</li>
+            <li>Bolsillos seguros con cierre</li>
+            <li>Lavable a máquina (módulo LED extraíble)</li>
+          </ul>
+          <p class="product-price" aria-label="Precio: 1,450 pesos mexicanos">$1,450 MXN</p>
+          <a href="#contacto" class="btn-card">Solicitar información</a>
+        </div>
+      </article>
+      <!-- Producto 3 -->
+      <article class="product-card" aria-labelledby="prod3-name">
+        <div class="product-img p3" role="img" aria-label="Mochila LumiPack en color negro con panel LED posterior y franja reflectiva">
+          🎒
+          <span class="led-badge" aria-label="Tecnología LED incluida">LED</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name" id="prod3-name">Mochila LumiPack</h3>
+          <p class="product-desc">Mochila de 20L con panel LED posterior de alta intensidad, bandas reflectivas NightGlow y compartimento acolchado para laptop.</p>
+          <ul class="product-features" aria-label="Características principales">
+            <li>Panel LED posterior ultrabrillante</li>
+            <li>Puerto USB integrado para carga</li>
+            <li>20 litros de capacidad</li>
+            <li>Correas ergonómicas</li>
+          </ul>
+          <p class="product-price" aria-label="Precio: 690 pesos mexicanos">$690 MXN</p>
+          <a href="#contacto" class="btn-card">Solicitar información</a>
+        </div>
+      </article>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ IMPACTO SOCIAL ═══════════════ -->
+<section id="impacto" aria-labelledby="impact-heading">
+  <div class="container">
+    <div class="impact-grid">
+      <div class="impact-text">
+        <p class="section-label">Nosotros e Impacto Social</p>
+        <h2 class="section-h2" id="impact-heading">Cada prenda lleva consigo una historia de transformación</h2>
+        <p class="section-p">LuminVest es una empresa social que opera bajo el modelo de negocios inclusivos enfocado en empleados. Contratamos, capacitamos y dignificamos a personas en situación de vulnerabilidad como pilar de nuestra cadena de producción.</p>
+        <p class="section-p">Madres solteras, jóvenes en riesgo, personas con discapacidad y personas liberadas son el corazón de nuestra empresa. Todos con contrato formal, IMSS, aguinaldo y plan de carrera.</p>
+        <ul class="impact-list" aria-label="Compromisos de la empresa">
+          <li>Salario igual o superior al mínimo desde el primer día</li>
+          <li>Capacitación técnica en costura y electrónica básica</li>
+          <li>Certificación de competencias ante el CONOCER (SEP)</li>
+          <li>Ambiente libre de discriminación con perspectiva de género</li>
+          <li>Plan de carrera y ascenso a roles de supervisión</li>
+          <li>Acceso a microfinanzas y programas de bienestar</li>
+        </ul>
+        <a href="#contacto" class="btn-primary">Unirme al equipo</a>
+      </div>
+      <div class="impact-stats" aria-label="Estadísticas de impacto social">
+        <div class="stat-card">
+          <span class="stat-num" aria-label="Más de 15 empleos generados">15+</span>
+          <p class="stat-desc">Empleos formales generados en el primer año</p>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" aria-label="80 por ciento">80%</span>
+          <p class="stat-desc">Empleados en situación de vulnerabilidad social</p>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" aria-label="100 por ciento">100%</span>
+          <p class="stat-desc">Con seguridad social (IMSS) desde el día 1</p>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" aria-label="El doble">×2</span>
+          <p class="stat-desc">Incremento promedio en ingreso del hogar del empleado</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ METODOLOGÍA POUR ═══════════════ -->
+<section id="pour" aria-labelledby="pour-heading">
+  <div class="container">
+    <p class="section-label">Accesibilidad Web</p>
+    <h2 class="section-h2" id="pour-heading">Este sitio cumple con la Metodología POUR (WCAG 2.1)</h2>
+    <p class="section-p">Diseñamos este sitio para que cualquier persona pueda acceder a él, independientemente de sus capacidades físicas, cognitivas o tecnológicas, siguiendo los cuatro principios de accesibilidad web.</p>
+    <div class="pour-grid" aria-label="Principios de accesibilidad POUR">
+      <div class="pour-card p" aria-labelledby="pour-p-title">
+        <div class="pour-num">Principio 1</div>
+        <span class="pour-icon" aria-hidden="true">👁️</span>
+        <h3 class="pour-title" id="pour-p-title">Perceptible</h3>
+        <p class="pour-desc">Todas las imágenes tienen texto alternativo (alt). La relación de contraste entre texto e imagen supera 4.5:1. Tipografía Inter mínimo 16px. Los íconos LED se describen textualmente para lectores de pantalla.</p>
+      </div>
+      <div class="pour-card o" aria-labelledby="pour-o-title">
+        <div class="pour-num">Principio 2</div>
+        <span class="pour-icon" aria-hidden="true">⌨️</span>
+        <h3 class="pour-title" id="pour-o-title">Operable</h3>
+        <p class="pour-desc">Navegación completa por teclado (Tab/Enter). Todos los botones tienen mínimo 44×44px (WCAG 2.5.5). Enlace "Saltar al contenido" visible al recibir foco. Sin animaciones autoactivadas.</p>
+      </div>
+      <div class="pour-card u" aria-labelledby="pour-u-title">
+        <div class="pour-num">Principio 3</div>
+        <span class="pour-icon" aria-hidden="true">🗣️</span>
+        <h3 class="pour-title" id="pour-u-title">Comprensible</h3>
+        <p class="pour-desc">Lenguaje claro en nivel B1. Menú de navegación consistente en todas las páginas. Los formularios tienen etiquetas explícitas (label) y mensajes de error descriptivos. lang="es" declarado.</p>
+      </div>
+      <div class="pour-card r" aria-labelledby="pour-r-title">
+        <div class="pour-num">Principio 4</div>
+        <span class="pour-icon" aria-hidden="true">🛡️</span>
+        <h3 class="pour-title" id="pour-r-title">Robusto</h3>
+        <p class="pour-desc">HTML5 semántico (nav, main, section, article, footer). Roles ARIA explícitos. Compatible con NVDA, JAWS y VoiceOver. Código válido ante el validador W3C. Roles de tab implementados con aria-selected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACTO ═══════════════ -->
+<section id="contacto" aria-labelledby="contact-heading">
+  <div class="container">
+    <p class="section-label">Contacto y Empleo</p>
+    <h2 class="section-h2" id="contact-heading">¿Quieres unirte a nuestro equipo o hacer un pedido?</h2>
+    <div class="contact-grid">
+      <form aria-label="Formulario de contacto" novalidate>
+        <div class="form-group">
+          <label for="nombre">Nombre completo <span aria-label="campo obligatorio">*</span></label>
+          <input type="text" id="nombre" name="nombre" autocomplete="name" required
+            aria-required="true" aria-describedby="nombre-hint"
+            placeholder="Ej. María González Pérez">
+          <span id="nombre-hint" class="form-hint">Nombre y apellidos como aparecen en tu identificación oficial.</span>
+        </div>
+        <div class="form-group">
+          <label for="email">Correo electrónico <span aria-label="campo obligatorio">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required
+            aria-required="true" aria-describedby="email-hint"
+            placeholder="ejemplo@correo.com">
+          <span id="email-hint" class="form-hint">Te responderemos en un plazo máximo de 48 horas hábiles.</span>
+        </div>
+        <div class="form-group">
+          <label for="tipo">¿En qué te podemos ayudar?</label>
+          <select id="tipo" name="tipo" aria-describedby="tipo-hint">
+            <option value="">— Selecciona una opción —</option>
+            <option value="empleo">Quiero trabajar en LuminVest</option>
+            <option value="b2c">Comprar un producto (persona física)</option>
+            <option value="b2b">Pedido corporativo (empresa o gobierno)</option>
+            <option value="alianza">Propuesta de alianza o donativo</option>
+            <option value="prensa">Medios o prensa</option>
+          </select>
+          <span id="tipo-hint" class="form-hint">Selecciona la opción que mejor describe tu consulta.</span>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje <span aria-label="campo obligatorio">*</span></label>
+          <textarea id="mensaje" name="mensaje" required aria-required="true"
+            placeholder="Cuéntanos brevemente cómo podemos ayudarte o por qué te interesa unirte a nuestro equipo..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;font-size:1rem">
+          Enviar mensaje
+        </button>
+      </form>
+      <div class="contact-info">
+        <h3>Información de contacto</h3>
+        <p>Estamos en Monterrey, N.L., México. Nuestro taller y oficina está abierto de lunes a viernes de 8:00 a 17:00 horas.</p>
+        <div class="contact-item">
+          <div class="contact-icon" aria-hidden="true">📍</div>
+          <div class="contact-item-text">
+            <strong>Dirección</strong>
+            <span>Col. Obispado, Monterrey, N.L. C.P. 64060</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon" aria-hidden="true">✉️</div>
+          <div class="contact-item-text">
+            <strong>Correo electrónico</strong>
+            <span>contacto@luminvest.org</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon" aria-hidden="true">📞</div>
+          <div class="contact-item-text">
+            <strong>Teléfono</strong>
+            <span>+52 81 1234 5678</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon" aria-hidden="true">🕐</div>
+          <div class="contact-item-text">
+            <strong>Horario de atención</strong>
+            <span>Lun–Vie, 8:00–17:00 (hora de Monterrey)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Lumin<span>Vest</span></div>
+      <p class="footer-p">Empresa social que protege vidas con tecnología LED y genera empleo digno para personas en situación de vulnerabilidad. Monterrey, N.L., México.</p>
+      <div style="margin-top:1rem">
+        <span class="wcag-badge">WCAG 2.1 AA</span>
+        <span class="wcag-badge" style="margin-left:.5rem">POUR Compliant</span>
+      </div>
+    </div>
+    <div>
+      <div class="footer-h">Sitio web</div>
+      <ul class="footer-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#productos">Catálogo de productos</a></li>
+        <li><a href="#impacto">Impacto social</a></li>
+        <li><a href="#pour">Accesibilidad</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-h">Legal</div>
+      <ul class="footer-links">
+        <li><a href="#">Aviso de privacidad</a></li>
+        <li><a href="#">Términos de uso</a></li>
+        <li><a href="#">Declaración de accesibilidad</a></li>
+        <li><a href="#">Política de cookies</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 LuminVest — Indumentaria Inteligente de Alta Visibilidad. Todos los derechos reservados.</span>
+    <span>Monterrey, N.L., México · contacto@luminvest.org</span>
+  </div>
+</footer>
+
+<script>
+// Tab bar interactivity (accessible)
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected','false');
+    });
+    this.classList.add('active');
+    this.setAttribute('aria-selected','true');
+  });
+  tab.addEventListener('keydown', function(e){
+    const tabs = [...document.querySelectorAll('.tab')];
+    const idx = tabs.indexOf(this);
+    if(e.key==='ArrowRight') tabs[(idx+1)%tabs.length].focus();
+    if(e.key==='ArrowLeft') tabs[(idx-1+tabs.length)%tabs.length].focus();
+  });
+});
+</script>
+</body>
+</html>
